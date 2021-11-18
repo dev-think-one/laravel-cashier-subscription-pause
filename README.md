@@ -62,6 +62,27 @@ $subscription->pauseResumesAtTimestamp();
 $subscription->pauseResumesAt();
 ```
 
+Do not use default listener:
+
+```injectablephp
+<?php
+
+namespace App\Providers;
+
+use CashierSubscriptionPause\Listeners\CashierWebhookHandledEventListener;
+use Illuminate\Support\ServiceProvider;
+
+class AppServiceProvider extends ServiceProvider
+{
+
+    public function boot()
+    {
+       // ...
+        CashierWebhookHandledEventListener::deactivateListener();
+    }
+}
+```
+
 ## Credits
 
 - [![Think Studio](https://yaroslawww.github.io/images/sponsors/packages/logo-think-studio.png)](https://think.studio/)
