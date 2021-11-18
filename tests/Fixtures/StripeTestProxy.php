@@ -22,6 +22,12 @@ class StripeTestProxy
     public function __construct(string $filePath)
     {
         $this->filePath         = $filePath;
+
+        if (!file_exists($this->filePath)) {
+            echo "Creating proxy cache file [{ $this->filePath}]" . PHP_EOL;
+            file_put_contents($this->filePath, '{}');
+        }
+
         $this->stripeTestConfig = json_decode(file_get_contents(($this->filePath)), true);
 
         $this->putEnvIfSpecified();

@@ -19,12 +19,7 @@ abstract class FeatureTestCase extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        $path = __DIR__ . '/../stripe.config.json';
-        if (!file_exists($path)) {
-            echo "Creating proxy cache file [{$path}]" . PHP_EOL;
-            file_put_contents($path, '{}');
-        }
-        static::$stripeTestProxy = new StripeTestProxy($path);
+        static::$stripeTestProxy = new StripeTestProxy(__DIR__ . '/../stripe.config.json');
 
         parent::setUpBeforeClass();
     }
