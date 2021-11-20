@@ -2,6 +2,9 @@
 
 [![Packagist License](https://img.shields.io/packagist/l/yaroslawww/laravel-cashier-subscription-pause?color=%234dc71f)](https://github.com/yaroslawww/laravel-cashier-subscription-pause/blob/master/LICENSE.md)
 [![Packagist Version](https://img.shields.io/packagist/v/yaroslawww/laravel-cashier-subscription-pause)](https://packagist.org/packages/yaroslawww/laravel-cashier-subscription-pause)
+[![Build Status](https://scrutinizer-ci.com/g/yaroslawww/laravel-cashier-subscription-pause/badges/build.png?b=master)](https://scrutinizer-ci.com/g/yaroslawww/laravel-cashier-subscription-pause/build-status/master)
+[![Code Coverage](https://scrutinizer-ci.com/g/yaroslawww/laravel-cashier-subscription-pause/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/yaroslawww/laravel-cashier-subscription-pause/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/yaroslawww/laravel-cashier-subscription-pause/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/yaroslawww/laravel-cashier-subscription-pause/?branch=master)
 
 ## Installation
 
@@ -60,6 +63,20 @@ $subscription->paused(WithPauseCollection::BEHAVIOR_KEEP_AS_DRAFT);
 $subscription->paused(WithPauseCollection::BEHAVIOR_VOID);
 $subscription->pauseResumesAtTimestamp();
 $subscription->pauseResumesAt();
+```
+
+```injectablephp
+Subscription::query()->paused()->count();
+Subscription::query()->notPaused()->count();
+
+Subscription::query()->paused(WithPauseCollection::BEHAVIOR_VOID)->count();
+Subscription::query()->notPaused(WithPauseCollection::BEHAVIOR_VOID)->count();
+
+Subscription::query()->paused(WithPauseCollection::BEHAVIOR_MARK_UNCOLLECTIBLE)->count();
+Subscription::query()->notPaused(WithPauseCollection::BEHAVIOR_MARK_UNCOLLECTIBLE)->count();
+
+Subscription::query()->paused(WithPauseCollection::BEHAVIOR_KEEP_AS_DRAFT)->count();
+Subscription::query()->notPaused(WithPauseCollection::BEHAVIOR_KEEP_AS_DRAFT)->count();
 ```
 
 Do not use default listener:

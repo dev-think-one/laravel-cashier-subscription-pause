@@ -6,5 +6,3 @@ coverage
 .phpunit.result.cache
 .idea
 .php-cs-fixer.cache
-
-/tests/stripe.config.json

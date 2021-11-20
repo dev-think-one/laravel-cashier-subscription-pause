@@ -1,5 +1,0 @@
-{
-  "env": {
-    "STRIPE_SECRET": ""
-  }
-}

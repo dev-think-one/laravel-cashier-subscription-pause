@@ -93,6 +93,8 @@ class UsesPauseCollectionTest extends TestCase
             ]),
         ]);
 
+        $this->assertEquals(4 + 5 + 6 + 7 + 8 + 9 + 10 + 11 + 12, Subscription::query()->count());
+
         $this->assertEquals(7 + 8 + 9 + 10 + 11 + 12, Subscription::query()->paused()->count());
         $this->assertEquals(4 + 5 + 6, Subscription::query()->notPaused()->count());
 

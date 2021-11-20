@@ -6,11 +6,8 @@ use CashierSubscriptionPause\Tests\Fixtures\StripeTestProxy;
 use CashierSubscriptionPause\Tests\Fixtures\User;
 use CashierSubscriptionPause\Tests\TestCase;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
 abstract class FeatureTestCase extends TestCase
 {
-    use RefreshDatabase;
 
     /**
      * @var StripeTestProxy
@@ -19,7 +16,7 @@ abstract class FeatureTestCase extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        static::$stripeTestProxy = new StripeTestProxy(__DIR__ . '/../stripe.config.json');
+        static::$stripeTestProxy = new StripeTestProxy(__DIR__ . '/../.conf/stripe.config.json');
 
         parent::setUpBeforeClass();
     }
