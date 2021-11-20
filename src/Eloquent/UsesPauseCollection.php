@@ -3,6 +3,7 @@
 namespace CashierSubscriptionPause\Eloquent;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use LogicException;
 
 /**
@@ -100,6 +101,58 @@ trait UsesPauseCollection
         }
 
         return $hasBehavior;
+    }
+
+    /**
+     * Filter query by pause_collection behavior.
+     *
+     * @param Builder $query
+     * @param string|null $behavior
+     *
+     * @return Builder
+     */
+    public function scopePaused($query, ?string $behavior = null): Builder
+    {
+        if (!$behavior) {
+            return $query->whereNotNull('pause_collection')
+                         ->where('pause_collection->behavior', '!=', '')
+                         ->whereNotNull('pause_collection->behavior');
+        }
+
+        return $query->where('pause_collection->behavior', '=', $behavior);
+    }
+
+    /**
+     * @inerhitDoc
+     */
+    public function notPaused(?string $behavior = null): bool
+    {
+        return !$this->paused($behavior);
+    }
+
+    /**
+     * Filter query by not paused payment collection.
+     *
+     * @param Builder $query
+     * @param string|null $behavior
+     *
+     * @return Builder
+     */
+    public function scopeNotPaused($query, ?string $behavior = null): Builder
+    {
+        if (!$behavior) {
+            return $query->where(function ($query) {
+                $query->whereNull('pause_collection')
+                      ->orWhere('pause_collection->behavior', '=', '')
+                      ->orWhereNull('pause_collection->behavior');
+            });
+        }
+
+        return $query->where(function ($query) use ($behavior) {
+            $query->where('pause_collection->behavior', '!=', $behavior)
+                  ->orWhereNull('pause_collection')
+                  ->orWhereNull('pause_collection->behavior');
+        });
     }
 
     /**

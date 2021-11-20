@@ -2,13 +2,15 @@
 
 namespace CashierSubscriptionPause\Tests\Fixtures;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Cashier\Billable;
+use Orchestra\Testbench\Factories\UserFactory;
 
 class User extends Model
 {
-    use Billable, Notifiable;
+    use Billable, Notifiable, HasFactory;
 
     public $taxRates = [];
 
@@ -51,5 +53,15 @@ class User extends Model
     public function priceTaxRates()
     {
         return $this->priceTaxRates;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return UserFactory::new();
     }
 }

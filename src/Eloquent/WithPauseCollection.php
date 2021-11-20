@@ -80,6 +80,15 @@ interface WithPauseCollection
     public function paused(?string $behavior = null): bool;
 
     /**
+     * Check is current subscription not paused.
+     *
+     * @param string|null $behavior - Check specific behavior, if null will check any behavior.
+     *
+     * @return bool
+     */
+    public function notPaused(?string $behavior = null): bool;
+
+    /**
      * Get auto pause resumes timestamp.
      *
      * @param string|null $behavior
