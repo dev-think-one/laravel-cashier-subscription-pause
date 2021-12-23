@@ -4,7 +4,7 @@ namespace CashierSubscriptionPause\Tests;
 
 use CashierSubscriptionPause\Tests\Fixtures\Subscription;
 use CashierSubscriptionPause\Tests\Fixtures\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\File;
 use Laravel\Cashier\Cashier;
 use Laravel\Cashier\CashierServiceProvider;
@@ -13,12 +13,14 @@ use Symfony\Component\Finder\Finder;
 
 abstract class TestCase extends OrchestraTestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
 
-    public function setUp(): void
+    public function defineDatabaseMigrations()
     {
-        parent::setUp();
-
+        if (!class_exists('TestbenchCreateUsersTable')) {
+            $app = app();
+            File::copyDirectory($app->basePath('migrations'), $app->databasePath('migrations'));
+        }
         $finder = new Finder();
         $finder->files()
                ->in(database_path('migrations'))
@@ -29,11 +31,6 @@ abstract class TestCase extends OrchestraTestCase
                 '--tag'      => 'migrations',
             ]);
         }
-        $this->artisan('migrate');
-    }
-
-    public function runDatabaseMigrations()
-    {
     }
 
 
@@ -48,7 +45,7 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Define environment setup.
      *
-     * @param \Illuminate\Foundation\Application $app
+     * @param  \Illuminate\Foundation\Application  $app
      *
      * @return void
      */
@@ -63,11 +60,6 @@ abstract class TestCase extends OrchestraTestCase
                 'prefix'   => '',
             ]);
         }
-
-        if (!class_exists('TestbenchCreateUsersTable')) {
-            File::copyDirectory($app->basePath('migrations'), $app->databasePath('migrations'));
-        }
-
 
         Cashier::useCustomerModel(User::class);
         Cashier::useSubscriptionModel(Subscription::class);
