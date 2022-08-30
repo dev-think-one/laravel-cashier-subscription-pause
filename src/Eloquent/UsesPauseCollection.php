@@ -12,14 +12,13 @@ use LogicException;
  */
 trait UsesPauseCollection
 {
-
     /**
      * @inerhitDoc
      */
     public function pause(string $behavior, ?Carbon $resumesAt = null): static
     {
-        if ($this->cancelled()) {
-            throw new LogicException('Unable to pause subscription that is cancelled.');
+        if ($this->canceled()) {
+            throw new LogicException('Unable to pause subscription that is canceled.');
         }
 
         $payload = [ 'behavior' => $behavior ];

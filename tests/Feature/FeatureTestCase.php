@@ -8,7 +8,6 @@ use CashierSubscriptionPause\Tests\TestCase;
 
 abstract class FeatureTestCase extends TestCase
 {
-
     /**
      * @var StripeTestProxy
      */

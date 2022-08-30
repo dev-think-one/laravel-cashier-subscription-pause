@@ -8,7 +8,6 @@ use Laravel\Cashier\Events\WebhookHandled;
 
 class CashierWebhookHandledEventListener
 {
-
     /**
      * Deactivate default package listener.
      *

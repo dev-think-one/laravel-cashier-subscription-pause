@@ -8,7 +8,6 @@ use CashierSubscriptionPause\Tests\Fixtures\Subscription;
 
 class WithPauseCollectionTest extends FeatureTestCase
 {
-
     /** @test */
     public function subscriptions_can_be_paused_with_stripe()
     {
@@ -132,7 +131,7 @@ class WithPauseCollectionTest extends FeatureTestCase
         $subscription->cancel();
 
         $this->expectException(\LogicException::class);
-        $this->expectExceptionMessage('Unable to pause subscription that is cancelled.');
+        $this->expectExceptionMessage('Unable to pause subscription that is canceled.');
         $subscription->pauseBehaviorKeepAsDraft();
     }
 
