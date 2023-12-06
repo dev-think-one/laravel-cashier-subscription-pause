@@ -81,10 +81,12 @@ trait UsesPauseCollection
      */
     public function syncStripePauseCollection(): static
     {
-        $subscription = $this->asStripeSubscription();
+        if($this->owner) {
+            $subscription = $this->asStripeSubscription();
 
-        $this->pause_collection = $subscription->pause_collection?->toArray();
-        $this->save();
+            $this->pause_collection = $subscription->pause_collection?->toArray();
+            $this->save();
+        }
 
         return $this;
     }
